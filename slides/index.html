@@ -319,8 +319,7 @@
               same database.
               <br />
               <br />
-</p>
-
+              </p>
           </section>
 
 
@@ -350,11 +349,24 @@
           </section>
 
           <section>
+            <h2> Levels of Authorization </h2>
+            <br />
+
+            <p> <span class="highlighted">Class level authorization:</span> grant users ability to create new instances </p>
+
+            <br />
+            <hr />
+
+            <p> <span class="highlighted">Instance level authorization</span>: allow users to work with individual
+            domain objects </p>
+          </section>
+
+          <section>
               <pre><code>
 
 
    @Secured(["isFullyAuthenticated()"])
-   def show(Organization org) {
+   def show(Project org) {
        ...
    }
 
@@ -369,8 +381,8 @@
 
 
    @Secured(["isFullyAuthenticated()"])
-   @Authorized( clazz = Organization, idParam = "id", permission="VIEWER" )
-   def show(Organization org) {
+   @Authorized( clazz = Project, idParam = "id", permission="VIEWER" )
+   def show(Project org) {
        ...
    }
 
@@ -481,7 +493,6 @@
               <h2>implementation...</h2>
               <br />
               <a href="https://github.com/onetribeyoyo/grails-domain-authorization">github.com/onetribeyoyo/grails-domain-authorization</a>
-              plugin (in progress)
               <br />
               <br />
               <ul>
@@ -532,43 +543,55 @@
         </section>
 
         <section>
-          <pre><code>ProjectController {
+          <pre><code>
 
-    @Authorized( clazz = Project, permission = "CREATE" )
-    def create() {
+    @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
+    @SecuredApi
+    def apiGet(String projectCode) {
         ....
     }
 
-    @Authorized( clazz = Project, permission = "CREATE" )
-    def save() {
-        ....
-    }
-
-    @Authorized( clazz = Project, idParam = "id", permission = "VIEW" )
-    def show(Project project) {
-        ....
-    }
-}</code></pre>
+</code></pre>
         </section>
 
         <section>
-          <pre><code>GroupController {
+          <pre><code>
+ApiConsumer {
 
-    @Authorized( clazz = Project, idParam = "code", permission = "CONFIG" )
-    def show(GroupCategory groupCategory) {
-        ....
+    boolean validateResource(String rsrc) {
+        if (!rsrc?.trim()) {
+            return false
+        } else if (!isActive()) {
+            return false
+        } else if (!scope) {
+            return false
+        } else {
+            return scope.find { pattern -> matchUriPattern(rsrc, pattern) }
+        }
     }
 
-    @Authorized( clazz = Project, idParam = "code", permission = "CONFIG" )
-    def createCategory() {
-        ....
-    }
 
-    @Authorized( clazz = Project, idParam = "code", permission = "CONFIG" )
-    def saveCategory(GroupCategory groupCategory) {
-        ....
-    }
-}</code></pre>
+</code></pre>
+        </section>
+
+        <section>
+          <pre><code>
+ApiConsumerSpec {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</code></pre>
         </section>
 
         <section>
@@ -586,11 +609,11 @@
             <p>
               <br />
               <br />
-              Slides: <a href="https://github.com/onetribeyoyo/dev-objecttives-2015">github.com/onetribeyoyo/dev-objecttives-2015</a>
+              Slides + Src: <a href="https://github.com/onetribeyoyo/dev-objecttives-2015">github.com/onetribeyoyo/dev-objecttives-2015</a>
               <br />
               <br />
               <small>
-                grails-domain-authorization plugin (in progress)
+                grails-domain-authorization plugin
                 <br />
                 <a href="https://github.com/onetribeyoyo/grails-domain-authorization">github.com/onetribeyoyo/grails-domain-authorization</a>
                 <br />
