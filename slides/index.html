@@ -568,6 +568,28 @@ ApiConsumer {
         </section>
 
         <section>
+          <h2> Bearer Token? </h2>
+          <br />
+
+          <p class="fragment"> "authorization" http request header field formatted like... </p>
+
+<pre class="fragment"><code>
+"bearer b64token"
+
+</code></pre>
+
+          <div class="fragment">
+            <p> where </p>
+<pre class="fragment"><code>
+b64token = 1*( ALPHA / DIGIT / "-" / "." / "_" / "~" / "+" / "/" ) *"="
+
+</code></pre>
+
+          </div>
+
+        </section>
+
+        <section>
           <pre><code>
 ApiConsumerSpec {
 
@@ -624,11 +646,6 @@ ApiConsumerSpec {
               <a href="mailto:amiller@objectpartners.com">amiller@objectpartners.com</a> |
               <a href="http://twitter.com/opiamiller">@opiamiller</a> |
             </small>
-          </p>
-          <p>
-            <img height="100" src="./assets/img/2015-OPI-Logo-Long.png" style="background:none; border:none; box-shadow:none;"/>
-            <br />
-            <small> <a href="http://www.objectpartners.com/">www.objectpartners.com</a> </small>
           </p>
         </section>
 
