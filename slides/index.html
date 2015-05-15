@@ -141,6 +141,15 @@
 
         <section>
           <h2> Pattern Languages </h2>
+          <br />
+          <p class="fragment">
+            The words we use to discuss difficult topics should be the same when we talk about <span
+            class="highlighted">requirements</span>, talk about <span class="highlighted">technical concepts</span>, and
+            when we talk about <span class="highlighted">code</span>.
+          </p>
+        </section>
+
+
         </section>
 
         <section>
@@ -589,6 +598,34 @@ b64token = 1*( ALPHA / DIGIT / "-" / "." / "_" / "~" / "+" / "/" ) *"="
 
         </section>
 
+
+        <section>
+          <h2> API Scopes </h2>
+
+          <p> Each bearer token maps to a restricted scope... </p>
+
+<pre class="fragment"><code>
+     scope = [ "/" ]
+     scope = [ "/api" ]
+     scope = [ "/api/**" ]
+
+</code></pre>
+
+<pre class="fragment"><code>
+     scope = [ "/api/v1/**" ]
+     scope = [ "/api/v2/**" ]
+     scope = [ "/api/v1/**", "/api/v2/**" ]
+
+</code></pre>
+
+<pre class="fragment"><code>
+     scope = [ "/api/v1/tenantX/**" ]
+     scope = [ "/api/v1/tenantY/**" ]
+
+</code></pre>
+        </section>
+
+
         <section>
           <pre><code>
 ApiConsumerSpec {
@@ -607,16 +644,6 @@ CODE EXAMPLES
 
 
 </code></pre>
-        </section>
-
-        <section>
-          <h2> Pattern Language </h2>
-          <br />
-          <p>
-            The words we use to discuss difficult topics should be the same when we talk about <span
-            class="highlighted">requirements</span>, talk about <span class="highlighted">technical concepts</span>, and
-            when we talk about <span class="highlighted">code</span>.
-          </p>
         </section>
 
         <section>

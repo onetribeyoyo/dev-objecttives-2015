@@ -232,35 +232,35 @@ class ApiConsumerSpec extends Specification {
             consumer.isActive()
             consumer.validateResource(resource) == valid
         where:
-            valid | resource | scope
+            scope                   | resource   | valid
 
-            false | " "      | null
-            false | ""       | null
-            false | null     | null
+            null                    | " "        | false
+            null                    | ""         | false
+            null                    | null       | false
 
-            false | "/"      | null
-            false | "/"      | []
-            true  | "/"      | ["/"]
-            false | "/"      | ["/api"]
+            null                    | "/"        | false
+            []                      | "/"        | false
+            ["/"]                   | "/"        | true
+            ["/api"]                | "/"        | false
 
-            false | "/api"   | ["/"]
-            false | "/api"   | ["api"]
-            true  | "/api"   | ["/api"]
+            ["/"]                   | "/api"     | false
+            ["api"]                 | "/api"     | false
+            ["/api"]                | "/api"     | true
 
-            true  | "/api"   | ["/api"]
-            true  | "/api/"  | ["/api"]
+            ["/api"]                | "/api"     | true
+            ["/api"]                | "/api/"    | true
 
-            true  | "/api"   | ["/api/"]
-            true  | "/api/"  | ["/api/"]
+            ["/api/" ]              | "/api"     | true
+            ["/api/"]               | "/api/"    | true
 
-            false | "/api/b"   | ["/api"]
-            true  | "/api/b"   | ["/api/**"]
-            true  | "/api/b/c" | ["/api/**"]
+            ["/api"]                | "/api/b"   | false
+            ["/api/**"]             | "/api/b"   | true
+            ["/api/**"]             | "/api/b/c" | true
 
-            true  | "/api/a"   | ["/api/a", "/api/b/**"]
-            true  | "/api/b"   | ["/api/a", "/api/b/**"]
-            false | "/api/c"   | ["/api/a", "/api/b/**"]
-            true  | "/api/b/e" | ["/api/a", "/api/b/**"]
+            ["/api/a", "/api/b/**"] | "/api/a"   | true
+            ["/api/a", "/api/b/**"] | "/api/b"   | true
+            ["/api/a", "/api/b/**"] | "/api/c"   | false
+            ["/api/a", "/api/b/**"] | "/api/b/e" | true
     }
 
 }
